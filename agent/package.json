@@ -1,0 +1,17 @@
+{
+  "name": "acme-ai-worker",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Autonomous AI task worker: LangChain + OpenAI + Playwright",
+  "dependencies": {
+    "@langchain/core": "^1.2.17",
+    "@langchain/openai": "^1.6.2",
+    "playwright": "^1.64.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.3",
+    "typescript": "^7.0.2"
+  }
+}
