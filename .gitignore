@@ -3,3 +3,6 @@ dist
 .env
 *.log
 .DS_Store
+agent/runs/
+.venv/
+__pycache__/

@@ -35,6 +35,13 @@ function VendorForm({ vendor }: { vendor: Vendor }) {
   const [message, setMessage] = useState<{ tone: "ok" | "error"; text: string } | null>(null);
   const [saving, setSaving] = useState(false);
 
+  // Editing a field clears its error, so a stale message never outlives the fix
+  function clearFieldError(event: FormEvent<HTMLFormElement>) {
+    const name = (event.target as HTMLInputElement).name;
+    if (fieldErrors[name]) setFieldErrors(({ [name]: _, ...rest }) => rest);
+    setMessage(null);
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget));
@@ -56,7 +63,7 @@ function VendorForm({ vendor }: { vendor: Vendor }) {
   return (
     <>
       <PageHeader title={vendor.name} description={`GSTIN ${vendor.gstin} · Net ${vendor.paymentTermsDays} payment terms`} />
-      <form onSubmit={handleSubmit} noValidate aria-label="Vendor details" className="max-w-[640px] px-6 py-6 md:px-8">
+      <form onSubmit={handleSubmit} onInput={clearFieldError} onChange={clearFieldError} noValidate aria-label="Vendor details" className="max-w-[640px] px-6 py-6 md:px-8">
         {message ? (
           <div
             role={message.tone === "ok" ? "status" : "alert"}

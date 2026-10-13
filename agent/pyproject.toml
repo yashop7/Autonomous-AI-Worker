@@ -1,0 +1,12 @@
+[project]
+name = "acme-ai-worker"
+version = "0.1.0"
+description = "Autonomous AI task worker: LangChain + OpenAI + Playwright"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain-core>=1.6.10",
+    "langchain-openai>=1.7.1",
+    "playwright>=1.63.0",
+    "pydantic>=2.14.1",
+    "python-dotenv>=1.2.4",
+]

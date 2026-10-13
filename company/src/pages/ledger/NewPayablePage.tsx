@@ -17,6 +17,13 @@ export default function NewPayablePage() {
   const [saving, setSaving] = useState(false);
 
   // Uncontrolled form: values are read once on submit, so typing never re-renders the page
+  // Editing a field clears its error, so a stale message never outlives the fix
+  function clearFieldError(event: FormEvent<HTMLFormElement>) {
+    const name = (event.target as HTMLInputElement).name;
+    if (fieldErrors[name]) setFieldErrors(({ [name]: _, ...rest }) => rest);
+    setFormError(null);
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget));
@@ -48,7 +55,7 @@ export default function NewPayablePage() {
       </div>
       <PageHeader title="New payable" description="Record a supplier invoice so it's included in the next payment run." />
 
-      <form onSubmit={handleSubmit} noValidate aria-label="New payable" className="max-w-[640px] px-6 py-6 md:px-8">
+      <form onSubmit={handleSubmit} onInput={clearFieldError} onChange={clearFieldError} noValidate aria-label="New payable" className="max-w-[640px] px-6 py-6 md:px-8">
         {formError ? (
           <div role="alert" className="mb-6 flex items-start gap-2.5 rounded-panel border border-danger/20 bg-danger-soft px-4 py-3 text-[13px] text-danger">
             <WarningCircle size={18} weight="fill" className="mt-px shrink-0" aria-hidden />

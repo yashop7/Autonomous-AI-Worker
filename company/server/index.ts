@@ -113,11 +113,11 @@ function parseDate(input: string, strict: boolean): string | null {
 }
 
 const payableInput = z.object({
-  vendorId: z.string().min(1, "Choose a vendor"),
-  invoiceNumber: z.string().trim().min(1, "Enter the invoice number"),
-  amount: z.union([z.string(), z.number()]),
-  invoiceDate: z.string().min(1, "Enter the invoice date"),
-  dueDate: z.string().min(1, "Enter the due date"),
+  vendorId: z.string("Choose a supplier").min(1, "Choose a supplier"),
+  invoiceNumber: z.string("Enter the invoice number").trim().min(1, "Enter the invoice number"),
+  amount: z.union([z.string(), z.number()], "Enter the amount"),
+  invoiceDate: z.string("Enter the invoice date").min(1, "Enter the invoice date"),
+  dueDate: z.string("Enter the due date").min(1, "Enter the due date"),
   category: z.enum(CATEGORIES, "Choose a category"),
   notes: z.string().optional().default(""),
 });
